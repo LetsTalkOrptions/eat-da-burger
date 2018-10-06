@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-4 uneaten">
     <h3>Burgers to Eat</h3>
-    <form action="/{{this.id}}?_method=DELETE" method="POST">
+    <form action="/burger/eat/{{id}}" method="POST">
       {{#each burgers}}
 
       <p>{{this.id}}. {{this.burger_name}}
@@ -11,13 +11,14 @@
     </form>
   </div>
   <div class="col-md-4" id="sign">
-    <img src="../public/assets/img/burger.jpg">
+    <img src="../public/assets/img/burger.jpg" style="width:300px; height:300px;">
     <h1>Eat-Da-Burger!</h1>
   </div>
   <div class="col-md-4"></div>
 </div>
 
 <div class="row">
+  <div class="col-md-4"></div>
   <div class="col-md-4" id="addBurger">
     <form method="POST" action="/create">
       <p>Enter what you are hungry for then click 'Add a Burger'.</p>

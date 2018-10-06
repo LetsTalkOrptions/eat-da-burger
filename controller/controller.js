@@ -1,12 +1,18 @@
 var express = require("express");
-
 var router = express.Router();
 
 // Import burger
 var burger = require("../models/burgers.js");
 
 // Create routes, define them
-router.get("/", function(req, res){
+
+router.get('/', function (req, res) {
+    res.redirect('/index');
+  });
+
+//   Index page
+
+router.get("/index", function(req, res){
 	burger.all(function(data){
 		var allBurgers = {
 			burgers: data
@@ -16,34 +22,20 @@ router.get("/", function(req, res){
 	});
 });
 
-router.post("/", function(req, res) {
-	 burger.create([
-    "name", "devoured"
-  ], [
-    req.body.burger_name, req.body.devoured
-  ], function() {
-    res.redirect("/");
+// Create
+
+router.post('/burger/create', function (req, res) {
+    burger.create(req.body.burger_name, function() {
+      res.redirect('/index');
+    });
   });
-});
 
-router.put("/:id", function(req, res) {
-  var status = "id = " + req.params.id;
+//   Devour
 
-  console.log("status", status);
-
-  burger.update({
-    status: req.body.status
-  }, status, function() {
-    res.redirect("/");
+router.post('/burger/eat/:id', function (req, res) {
+    burger.delete(req.params.id, function() {
+      res.redirect('/index');
+    });
   });
-});
-
-router.delete("/:id", function(req, res) {
-  var status = "id = " + req.params.id;
-
-  burger.delete(status, function() {
-    res.redirect("/");
-  });
-});
 // Export routes 
 module.exports = router;
